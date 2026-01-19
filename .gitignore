@@ -1,0 +1,21 @@
+# --- Media & Large Files ---
+raw_video/*
+!raw_video/.gitkeep
+chunks/*
+!chunks/.gitkeep
+
+# --- Generated Data & State ---
+data/*
+!data/.gitkeep
+Moxi_Master_SOP.md
+
+# --- Context Files ---
+# Transcript often contains PII or specific meeting data, better to ignore.
+transcript.vtt
+
+# --- Python & Environment ---
+__pycache__/
+*.pyc
+venv/
+.env
+.DS_Store
