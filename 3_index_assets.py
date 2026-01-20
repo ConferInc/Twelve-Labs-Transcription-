@@ -7,20 +7,30 @@ import os
 def index_assets():
     client = TwelveLabs(api_key=Config.API_KEY)
     
-    # 1. Load Assets
+    # 1. Load Assets (Local or synced)
     if not os.path.exists(Config.ASSETS_DB):
         print("❌ Assets DB missing. Run script #2 first.")
         return
     with open(Config.ASSETS_DB, "r") as f:
         assets = json.load(f)
 
-    # 2. Get/Create Index
+    # 2. Get/Create Index (Use configured ID)
     target_index = None
-    for idx in client.indexes.list():
-        if getattr(idx, "index_name", "") == Config.INDEX_NAME:
-            target_index = idx
-            print(f"✅ Found existing Index: {idx.id}")
-            break
+    if getattr(Config, "INDEX_ID", None):
+        try:
+            target_index = client.indexes.retrieve(Config.INDEX_ID)
+            print(f"✅ Using Configured Index: {target_index.id} ('{target_index.index_name}')")
+        except Exception as e:
+            print(f"❌ Error retrieving configured index: {e}")
+            return
+            
+    if not target_index:
+        # Fallback to search (legacy)
+        for idx in client.indexes.list():
+            if getattr(idx, "index_name", "") == Config.INDEX_NAME:
+                target_index = idx
+                print(f"✅ Found existing Index: {idx.id}")
+                break
     
     if not target_index:
         print(f"🆕 Creating Index '{Config.INDEX_NAME}'...")
@@ -32,27 +42,50 @@ def index_assets():
             ]
         )
         print(f"✅ Created Index: {target_index.id}")
+        
+    # 3. Sync Remote Index State
+    print(f"🌍 Verifying contents of Index {target_index.id}...")
+    remote_indexed_video_ids = {} # filename -> video_id
+    
+    # We need to map Asset ID -> Filename (reverse lookup)
+    asset_id_to_filename = {item['asset_id']: item['filename'] for item in assets}
+    
+    try:
+        # Fetch all indexed assets
+        # Note: pagination might be needed for large sets, ignoring for now
+        indexed_assets = client.indexes.indexed_assets.list(index_id=target_index.id)
+        for val in indexed_assets:
+            # val.id is the VIDEO_ID used for analysis
+            # val.asset_id is the uploaded asset ID
+            if hasattr(val, 'asset_id') and val.asset_id in asset_id_to_filename:
+                fname = asset_id_to_filename[val.asset_id]
+                remote_indexed_video_ids[fname] = val.id
+                
+        print(f"🌍 Found {len(remote_indexed_video_ids)} assets already in this Index.")
+    except Exception as e:
+        print(f"⚠️ Could not verify index contents: {e}")
 
-    # 3. Bind Assets
+    # Re-build index_map from what we KNOW is there
     indexed_map = []
-    # Load existing indexed map if available
-    if os.path.exists(Config.INDEX_DB):
-        try:
-            with open(Config.INDEX_DB, "r") as f:
-                indexed_map = json.load(f)
-            print(f"📂 Loaded {len(indexed_map)} existing indexed assets from DB.")
-        except Exception as e:
-            print(f"⚠️ Could not load existing index DB: {e}")
-
-    # Create a set of already indexed asset_ids for quick lookup
-    existing_asset_ids = {item['asset_id'] for item in indexed_map}
+    
+    # Add known remote items to map
+    for fname, vid_id in remote_indexed_video_ids.items():
+        # Find asset_id
+        aid = next((a['asset_id'] for a in assets if a['filename'] == fname), None)
+        if aid:
+            indexed_map.append({
+                "filename": fname,
+                "video_id": vid_id,
+                "asset_id": aid
+            })
 
     print(f"🔗 Binding {len(assets)} assets to Index...")
     
     new_bindings_count = 0
     for item in assets:
-        if item['asset_id'] in existing_asset_ids:
-            print(f"   ⏭️  Skipping {item['filename']} (Already indexed)")
+        if item['filename'] in remote_indexed_video_ids:
+            # Already indexed and in our map
+            print(f"   ✅ {item['filename']} is indexed ({remote_indexed_video_ids[item['filename']]})")
             continue
 
         print(f"   Processing {item['filename']}...", end="", flush=True)
@@ -84,14 +117,13 @@ def index_assets():
             })
             new_bindings_count += 1
             
-            # Save incrementally
-            with open(Config.INDEX_DB, "w") as f:
-                json.dump(indexed_map, f, indent=2)
-            
         except Exception as e:
             print(f"\n❌ Error: {e}")
-
-    print(f"\n✅ Indexing Complete. {new_bindings_count} new assets bound. Map saved to {Config.INDEX_DB}")
+            
+    # Save DB
+    with open(Config.INDEX_DB, "w") as f:
+        json.dump(indexed_map, f, indent=2)
+    print(f"\n✅ Indexing Complete. {new_bindings_count} new assets bound. Map synced with Remote.")
 
 if __name__ == "__main__":
     index_assets()

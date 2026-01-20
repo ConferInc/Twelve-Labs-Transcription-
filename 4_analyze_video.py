@@ -61,19 +61,42 @@ def analyze():
         start_min = i * Config.CHUNK_DURATION_MINS
         end_min = (i + 1) * Config.CHUNK_DURATION_MINS
         
-        # 2. The Nuclear Prompt
+        # 2. The Nuclear Prompt (Mortgage SOP Edition)
         prompt = f"""
-        ROLE: Senior Technical Analyst.
+        ROLE: Expert Mortgage Operations Analyst & Technical Writer.
         
-        CONTEXT (Speaker Identification Source):
-        '''{zoom_context[:3500]}...'''
+        OBJECTIVE: Reverse-engineer a granule, Click-by-Click Standard Operating Procedure (SOP) from this video.
+        SCENARIO: A "Dummy Applicant" loan file is being processed (likely Encompass/Moxi flow).
+        
+        INPUT CONTEXT (For Speaker Identification & Speech):
+        '''{zoom_context[:4000]}...'''
+        
+        INSTRUCTIONS:
+        1. **VISUAL PRECISION**: You MUST describe exactly what is on the screen. 
+           - If a Form is shown, list the visible fields and values entered.
+           - If a Button is clicked, state the EXACT button label (e.g. "Create Loan" vs "Submit").
+           - Identify the software screen (e.g., "1003 Form", "Borrower Summary", "Email Automation").
+           
+        2. **CLICK-BY-CLICK ACCURACY**: Record every single interaction.
+           - "User clicked dropdown 'Loan Type' -> Selected 'FHA'".
+           - "User checked box 'First Time Homebuyer'".
+           
+        3. **SPEAKER & TRANSCRIPT**: 
+           - Attribute actions/speech to the correct person (use names from Context).
+           - Provide the KEY PHRASE said during the action (Verbatim if possible).
 
-        TASK: Analyze video segment ({start_min}m-{end_min}m).
-        
-        REQUIREMENTS:
-        1. Use SPEAKER NAMES from context (e.g. Yasin) instead of "Speaker".
-        2. CAPTURE EVERY BUTTON CLICK with exact label (e.g. Click **[Save]**).
-        3. FORMAT: Markdown Tables for forms; Lists for actions.
+        4. **STRICT FORMAT**:
+           For every distinct action or screen change, output a structured block:
+           
+           ### [MM:SS] {{Action Summary}}
+           - **Screen**: {{Detailed description of UI/Form}}
+           - **Action**: {{Click-by-click interaction}}
+           - **Data Input**: 
+               * {{Field}}: {{Value}}
+               * {{Field}}: {{Value}}
+           - **Speaker**: {{Name}} ("{{Quote}}")
+           
+        5. **NO HALLUCINATIONS**: Only list what you SEE and HEAR. If a screen is blurry, say "Unclear".
         """
         
         # 3. Call API

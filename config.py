@@ -2,9 +2,11 @@ import os
 
 class Config:
     # [ACTION REQUIRED] PASTE NEW API KEY HERE
-    API_KEY = "tlk_1R29YQK19F8J7M2X896HX2TAN7H7" 
+   # API_KEY = "tlk_1R29YQK19F8J7M2X896HX2TAN7H7" 
+    API_KEY = "tlk_2DBEN7P0HJPGWB2XD5H0C391XWS3" 
     
     # Global Settings
+    INDEX_ID = "696e56ba239c178e9ac8cea4" # <--- User provided Index ID
     INDEX_NAME = "Moxi_Global_Analysis_Final_v3"
     CHUNK_DURATION_MINS = 15
     
