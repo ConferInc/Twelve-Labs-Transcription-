@@ -32,10 +32,28 @@ def analyze():
 
     full_transcript_text = load_transcript()
     results = []
+    
+    # Load existing results if available
+    if os.path.exists(Config.RAW_SOP_DB):
+        try:
+            with open(Config.RAW_SOP_DB, "r") as f:
+                results = json.load(f)
+            print(f"📂 Loaded {len(results)} existing analysis results from DB.")
+        except Exception as e:
+            print(f"⚠️ Could not load existing results DB: {e}")
+
+    # Create set of analyzed filenames
+    analyzed_filenames = {item['filename'] for item in results}
 
     print(f"🤖 Starting Analysis on {len(videos)} videos...")
 
+    new_analysis_count = 0
     for i, video in enumerate(videos):
+       # if video['filename'] in analyzed_filenames:
+            # print(f"   ⏭️  Skipping {video['filename']} (Already analyzed)")
+            # Optional: less verbose if many files
+        #    continue
+
         print(f"\n[{i+1}/{len(videos)}] Analyzing {video['filename']}...")
         
         # 1. Prepare Context
@@ -74,6 +92,13 @@ def analyze():
                 "raw_text": text_out,
                 "chunk_index": i
             })
+            new_analysis_count += 1
+            
+            # Save Incremental
+            # Sort by chunk_index to ensure order
+            results.sort(key=lambda x: x.get('chunk_index', 0))
+            with open(Config.RAW_SOP_DB, "w") as f:
+                json.dump(results, f, indent=2)
             
         except Exception as e:
             print(f"\n❌ Error: {e}")
@@ -83,10 +108,7 @@ def analyze():
             print(f"   ⏳ Cooling down {Config.SLEEP_BETWEEN_ANALYSIS}s...")
             time.sleep(Config.SLEEP_BETWEEN_ANALYSIS)
 
-    # Save Results
-    with open(Config.RAW_SOP_DB, "w") as f:
-        json.dump(results, f, indent=2)
-    print(f"\n✅ Analysis Complete. Saved to {Config.RAW_SOP_DB}")
+    print(f"\n✅ Analysis Complete. {new_analysis_count} new videos analyzed. Saved to {Config.RAW_SOP_DB}")
 
 if __name__ == "__main__":
     analyze()

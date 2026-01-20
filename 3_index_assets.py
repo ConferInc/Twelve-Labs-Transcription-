@@ -35,9 +35,26 @@ def index_assets():
 
     # 3. Bind Assets
     indexed_map = []
+    # Load existing indexed map if available
+    if os.path.exists(Config.INDEX_DB):
+        try:
+            with open(Config.INDEX_DB, "r") as f:
+                indexed_map = json.load(f)
+            print(f"📂 Loaded {len(indexed_map)} existing indexed assets from DB.")
+        except Exception as e:
+            print(f"⚠️ Could not load existing index DB: {e}")
+
+    # Create a set of already indexed asset_ids for quick lookup
+    existing_asset_ids = {item['asset_id'] for item in indexed_map}
+
     print(f"🔗 Binding {len(assets)} assets to Index...")
     
+    new_bindings_count = 0
     for item in assets:
+        if item['asset_id'] in existing_asset_ids:
+            print(f"   ⏭️  Skipping {item['filename']} (Already indexed)")
+            continue
+
         print(f"   Processing {item['filename']}...", end="", flush=True)
         try:
             # Bind
@@ -65,14 +82,16 @@ def index_assets():
                 "video_id": ia.id, # This is the ID used for analysis
                 "asset_id": item['asset_id']
             })
+            new_bindings_count += 1
+            
+            # Save incrementally
+            with open(Config.INDEX_DB, "w") as f:
+                json.dump(indexed_map, f, indent=2)
             
         except Exception as e:
             print(f"\n❌ Error: {e}")
 
-    # Save DB
-    with open(Config.INDEX_DB, "w") as f:
-        json.dump(indexed_map, f, indent=2)
-    print(f"\n✅ Indexing Complete. Map saved to {Config.INDEX_DB}")
+    print(f"\n✅ Indexing Complete. {new_bindings_count} new assets bound. Map saved to {Config.INDEX_DB}")
 
 if __name__ == "__main__":
     index_assets()
