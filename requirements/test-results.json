@@ -1,0 +1,326 @@
+[
+  {
+    "page": "Login Page",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:12.225Z"
+  },
+  {
+    "page": "Login Auth",
+    "status": "OK",
+    "detail": "Redirected to /",
+    "ts": "2026-04-14T17:36:15.276Z"
+  },
+  {
+    "page": "Dashboard",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:17.446Z"
+  },
+  {
+    "page": "Sales /sales/quotes",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:19.599Z"
+  },
+  {
+    "page": "Sales /sales/quotes/new",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:21.753Z"
+  },
+  {
+    "page": "Sales /sales/orders",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:23.889Z"
+  },
+  {
+    "page": "Sales /sales/pi",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:26.061Z"
+  },
+  {
+    "page": "Sales /sales/pi/new",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:28.242Z"
+  },
+  {
+    "page": "Sales /sales/invoices",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:30.402Z"
+  },
+  {
+    "page": "Sales /sales/commercial-invoices",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:32.754Z"
+  },
+  {
+    "page": "Sales /sales/commercial-invoices/new",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:34.939Z"
+  },
+  {
+    "page": "Sales /sales/returns",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:37.102Z"
+  },
+  {
+    "page": "Masters/items",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:39.318Z"
+  },
+  {
+    "page": "Masters/customers",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:41.549Z"
+  },
+  {
+    "page": "Masters/suppliers",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:43.760Z"
+  },
+  {
+    "page": "Masters/stone-types",
+    "status": "DEFECT",
+    "detail": "HTTP 404",
+    "ts": "2026-04-14T17:36:43.970Z"
+  },
+  {
+    "page": "Masters/colors",
+    "status": "DEFECT",
+    "detail": "HTTP 404",
+    "ts": "2026-04-14T17:36:44.190Z"
+  },
+  {
+    "page": "Masters/shapes",
+    "status": "DEFECT",
+    "detail": "HTTP 404",
+    "ts": "2026-04-14T17:36:44.450Z"
+  },
+  {
+    "page": "Masters/edges",
+    "status": "DEFECT",
+    "detail": "HTTP 404",
+    "ts": "2026-04-14T17:36:44.605Z"
+  },
+  {
+    "page": "Masters/top-surfaces",
+    "status": "DEFECT",
+    "detail": "HTTP 404",
+    "ts": "2026-04-14T17:36:44.771Z"
+  },
+  {
+    "page": "Masters/bottom-surfaces",
+    "status": "DEFECT",
+    "detail": "HTTP 404",
+    "ts": "2026-04-14T17:36:44.948Z"
+  },
+  {
+    "page": "Masters/thicknesses",
+    "status": "DEFECT",
+    "detail": "HTTP 404",
+    "ts": "2026-04-14T17:36:45.137Z"
+  },
+  {
+    "page": "Masters/dimension-uoms",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:47.327Z"
+  },
+  {
+    "page": "Masters/item-uoms",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:49.553Z"
+  },
+  {
+    "page": "Masters/ports",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:51.761Z"
+  },
+  {
+    "page": "Masters/quarries",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:53.968Z"
+  },
+  {
+    "page": "Masters/warehouses",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:56.116Z"
+  },
+  {
+    "page": "Masters/containers",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:36:58.442Z"
+  },
+  {
+    "page": "Masters/categories",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:00.603Z"
+  },
+  {
+    "page": "Masters/type-thickness-shapes",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:02.866Z"
+  },
+  {
+    "page": "Purchase /purchase/orders",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:05.020Z"
+  },
+  {
+    "page": "Purchase /purchase/receipts",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:07.266Z"
+  },
+  {
+    "page": "Purchase /purchase/returns",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:09.463Z"
+  },
+  {
+    "page": "Inventory /inventory",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:11.716Z"
+  },
+  {
+    "page": "Inventory /inventory/stock",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:13.877Z"
+  },
+  {
+    "page": "Inventory /inventory/adjustments",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:16.072Z"
+  },
+  {
+    "page": "Inventory /inventory/stocktake",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:18.264Z"
+  },
+  {
+    "page": "Inventory /inventory/transfers",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:20.494Z"
+  },
+  {
+    "page": "Logistics /logistics/shipments",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:22.703Z"
+  },
+  {
+    "page": "Logistics /logistics/packing-lists",
+    "status": "DEFECT",
+    "detail": "Application error",
+    "ts": "2026-04-14T17:37:24.924Z"
+  },
+  {
+    "page": "Logistics /logistics/packing-lists/new",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:27.133Z"
+  },
+  {
+    "page": "Logistics /logistics/tracking",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:29.444Z"
+  },
+  {
+    "page": "Production /production/work-orders",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:31.662Z"
+  },
+  {
+    "page": "Production /production/job-cards",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:33.872Z"
+  },
+  {
+    "page": "Production /production/bom",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:36.063Z"
+  },
+  {
+    "page": "Finance /finance/receivables",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:38.296Z"
+  },
+  {
+    "page": "Finance /finance/payables",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:40.518Z"
+  },
+  {
+    "page": "Finance /finance/payments",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:42.695Z"
+  },
+  {
+    "page": "Finance /finance/reports",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:44.888Z"
+  },
+  {
+    "page": "/approvals",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:47.053Z"
+  },
+  {
+    "page": "/settings",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:49.222Z"
+  },
+  {
+    "page": "/settings/company",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:51.399Z"
+  },
+  {
+    "page": "/profile",
+    "status": "OK",
+    "detail": "Loads",
+    "ts": "2026-04-14T17:37:53.590Z"
+  },
+  {
+    "page": "API /health",
+    "status": "DEFECT",
+    "detail": "HTTP 404 Loading Stone Factory ERP...(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])self.__next_f.push([1,\"1:HL[\\\"/_next/static/media/e4af272ccee01ff0-s.p.woff2\\\",\\\"font\\\",{\\\"crossOrig",
+    "ts": "2026-04-14T17:37:53.773Z"
+  }
+]

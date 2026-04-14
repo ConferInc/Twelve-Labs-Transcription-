@@ -1,0 +1,376 @@
+{
+  "project": "StoneFactory ERP",
+  "client": "Global Impex Pvt. Ltd.",
+  "generated": "2026-04-14 13:10",
+  "total_segments": 4,
+  "total_requirements": 11,
+  "summary": {
+    "by_module": {
+      "Masters": 1,
+      "UOM": 1,
+      "Sales": 1,
+      "Purchase": 1,
+      "Inventory": 1,
+      "Production": 1,
+      "Finance": 1,
+      "Logistics": 1,
+      "Mobile": 1,
+      "Approvals": 1,
+      "unclassified": 1
+    },
+    "by_type": {
+      "workflow": 3,
+      "feature_request": 2,
+      "uom_requirement": 1,
+      "report_requirement": 1,
+      "integration": 1,
+      "mobile_requirement": 1,
+      "approval_rule": 1,
+      "unclassified": 1
+    },
+    "by_priority": {
+      "high": 6,
+      "urgent": 3,
+      "normal": 1,
+      "unclassified": 1
+    },
+    "by_source": {
+      "both": 10,
+      "unclassified": 1
+    }
+  },
+  "requirements": [
+    {
+      "timestamp": "45:00",
+      "title": "Material Master Data Structure and Item Code Generation",
+      "module": "Masters",
+      "type": "feature_request",
+      "priority": "urgent",
+      "source": "both",
+      "speaker": "Alok",
+      "description": "The system must automatically generate an item code based on selected attributes such as material type, shape, dimensions (length, thickness), and unit of measurement (SQM/SQFT). When a user selects specific properties (e.g., length, shape, thickness in cm), the system should auto-fill the unit (SQM) from a predefined configuration. Upon clicking \"Create Item Code,\" the system must calculate and populate fields including LM number, pieces, SPFT (likely \"Standard Piece Footage\"), and generate the item code dynamically based on the combination of selected attributes. The item description must be a concatenation of attribute names, and dropdowns should display short codes derived from these attribute combinations. This functionality mirrors SAPâ€™s Material Master but requires customization for the stone industryâ€™s specific needs.",
+      "fields": [
+        "Material Type: Type (mandatory)",
+        "Description: Type (mandatory)",
+        "Unit of Measure (UOM): Type (mandatory)",
+        "Length: Type (mandatory)",
+        "Width: Type (optional)",
+        "Thickness: Type (mandatory)",
+        "Shape: Type (mandatory)",
+        "Create Item Code: Button (action)",
+        "Item Code Preview: Type (read-only)",
+        "Item Description Preview: Type (read-only)"
+      ],
+      "business_rules": [
+        "When Length, Shape, and Thickness are selected, UOM (SQM) must auto-populate based on a backend rule.",
+        "Item code must be generated only after all mandatory attributes are selected.",
+        "Item code format: [Material Type]-[Shape]-[Length]x[Width]x[Thickness][UOM]",
+        "Item description must be a concatenation of attribute names in order: Material Type + Shape + Dimensions + UOM"
+      ],
+      "visual_content": "A SAP screen titled \"Material Master\" with visible columns: Material Type, Description, Unit of Measure (UOM), Length, Width, Thickness, Shape, and other attribute fields. Dropdowns for Material Type show options like \"Sandstone,\" \"Granite,\" \"Marble.\" A button labeled \"Create Item Code\" is visible. Below the form, a preview shows a generated item code (e.g., \"SAND-FLM-120X30X2CM\") and a description field displaying \"Sandstone Flamed 120x30x2cm.\"",
+      "sap_reference": "In SAP, the Material Master allows attribute-based item code generation via customizing rules in the material type configuration. However, the current SAP setup does not support dynamic UOM auto-fill based on dimensions or automatic item description concatenation from attribute names.",
+      "relationships": [
+        "Material Type â†’ Item Code (composition)",
+        "Shape â†’ Item Code (composition)",
+        "Dimensions (Length, Width, Thickness) â†’ Item Code (composition)",
+        "UOM â†’ Item Code (composition)"
+      ],
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    },
+    {
+      "timestamp": "45:30",
+      "title": "Unit of Measurement (UOM) Configuration for Raw Materials",
+      "module": "UOM",
+      "type": "uom_requirement",
+      "priority": "high",
+      "source": "both",
+      "speaker": "Uday",
+      "description": "The system must support multiple UOMs for raw materials, including SQM, SQFT, MT, KG, and mixed UOM scenarios (e.g., pricing in SQM but shipping in MT). Conversion factors must be configurable based on material density. For example, when a material is measured in SQM, the system must allow conversion to MT using a density factor (e.g., 2.6 MT per SQM for Sandstone). The UOM must be selectable at the material master level and applied consistently across Sales, Purchase, Inventory, and Production modules.",
+      "fields": [
+        "Material Type: Type (mandatory)",
+        "Base UOM: Type (mandatory)",
+        "Conversion Factor: Type (mandatory)",
+        "Density (kg/mÂ³): Type (mandatory)",
+        "Active Flag: Type (optional)"
+      ],
+      "business_rules": [
+        "Conversion factor must be applied automatically when switching UOMs in transactional documents.",
+        "Density must be used to calculate weight from area (e.g., Weight = Area Ã— Thickness Ã— Density).",
+        "UOM must be set at the material master level and inherited across all modules."
+      ],
+      "visual_content": "A table titled \"UOM Configuration\" in a spreadsheet (Google Drive file named \"Material Master Data.xlsx\") with columns: Material Type, Base UOM, Conversion Factor, Density (kg/mÂ³), and Active Flag. Rows show: Sandstone (SQM â†’ MT: 2.6), Granite (SQM â†’ MT: 2.8), Basalt (SQM â†’ MT: 3.0). A dropdown in the SAP screen shows UOM options: SQM, SQFT, MT, KG, PCS.",
+      "sap_reference": "SAP supports UOM conversion via unit of measure group and conversion factors, but does not allow dynamic density-based weight calculation from area and thickness. Manual entry is required, leading to errors.",
+      "relationships": [
+        "Material Type â†’ UOM (one-to-many)",
+        "UOM â†’ Conversion Factor (one-to-one)",
+        "UOM â†’ Density (one-to-one)"
+      ],
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    },
+    {
+      "timestamp": "46:15",
+      "title": "Sales Order Processing with Customer-Specific Pricing and Tax Rules",
+      "module": "Sales",
+      "type": "workflow",
+      "priority": "urgent",
+      "source": "both",
+      "speaker": "Yatin",
+      "description": "Sales orders must support customer-specific pricing, discounts, tax calculations (GST/SGST/CGST/IGST), shipping methods, payment schedules, and delivery dates. The system must calculate taxes based on the customerâ€™s location (intra-state vs. inter-state) and apply the correct tax rate automatically. Discounts must be applied at the line item level and can be percentage-based or fixed amount. Payment schedules must be customizable per customer and linked to delivery milestones.",
+      "fields": [
+        "Customer Name: Type (mandatory)",
+        "Delivery Date: Type (mandatory)",
+        "Shipping Method: Type (mandatory)",
+        "Payment Terms: Type (mandatory)",
+        "Tax Rate: Type (auto-filled)",
+        "Discount: Type (optional)",
+        "Unit Price: Type (mandatory)",
+        "Quantity: Type (mandatory)",
+        "Total Amount: Type (read-only)"
+      ],
+      "business_rules": [
+        "Tax rate must be auto-filled based on customerâ€™s state and transaction type (intra-state vs. inter-state).",
+        "Discount must be applied before tax calculation.",
+        "Payment terms must be linked to delivery milestones (e.g., 50% on order, 50% on delivery)."
+      ],
+      "visual_content": "A Sales Order screen in SAP with fields: Customer Name, Delivery Date, Shipping Method (Air/Freight), Payment Terms (Net 30/Net 60), Tax Rate (auto-filled as 12% for intra-state), Discount (10%), and Total Amount. A dropdown shows tax types: CGST, SGST, IGST. A table below lists line items with Unit Price, Quantity, Discount, Tax, and Total.",
+      "sap_reference": "SAP allows customer-specific pricing via condition records and tax determination via tax codes, but requires manual setup for each customer and does not support dynamic tax rate assignment based on delivery location.",
+      "relationships": [
+        "Customer â†’ Tax Rate (one-to-one)",
+        "Sales Order â†’ Payment Schedule (one-to-many)",
+        "Sales Order â†’ Line Item (one-to-many)"
+      ],
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    },
+    {
+      "timestamp": "47:00",
+      "title": "Purchase Order Workflow with Supplier Negotiations and Quality Control",
+      "module": "Purchase",
+      "type": "workflow",
+      "priority": "high",
+      "source": "both",
+      "speaker": "Tanmay",
+      "description": "Purchase orders must support supplier negotiations, quality control checks, logistics arrangements, and compliance with export regulations. The system must track supplier performance (on-time delivery, defect rate) and flag non-compliant suppliers. POs must include inspection checklists and approval workflows before release. Upon receipt, goods must be inspected and logged into inventory only after passing QC.",
+      "fields": [
+        "Supplier Name: Type (mandatory)",
+        "PO Number: Type (read-only)",
+        "Delivery Date: Type (mandatory)",
+        "Quality Control Checklist: Type (mandatory)",
+        "Approval Level: Type (mandatory)",
+        "Status: Type (read-only)"
+      ],
+      "business_rules": [
+        "PO cannot be released until QC checklist is completed and approved.",
+        "Supplier performance score must be updated after each delivery.",
+        "Defect rate > 5% triggers a supplier warning."
+      ],
+      "visual_content": "A Purchase Order screen with tabs: General, Items, Quality Control, Approvals. The QC tab shows a checklist: \"Inspect for Cracks,\" \"Verify Dimensions,\" \"Check Surface Finish,\" \"Confirm Weight.\" A dropdown for \"Approval Level\" shows: \"Manager,\" \"Finance Head,\" \"CEO.\" A status bar shows \"Pending QC.\"",
+      "sap_reference": "SAP allows QC inspection via inspection lots, but the process is manual and not integrated with supplier performance tracking or automated warnings.",
+      "relationships": [
+        "Purchase Order â†’ Quality Control Checklist (one-to-one)",
+        "Purchase Order â†’ Approval Workflow (one-to-many)",
+        "Supplier â†’ Performance Score (one-to-one)"
+      ],
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    },
+    {
+      "timestamp": "48:15",
+      "title": "Inventory Management for Raw Materials and Finished Goods",
+      "module": "Inventory",
+      "type": "feature_request",
+      "priority": "high",
+      "source": "both",
+      "speaker": "Shrikanth",
+      "description": "Inventory must track raw materials (by material type, shape, dimensions) and finished goods (by SKU, surface finish, dimensions) in multiple locations: Bhopal (Office), Mundra (Factory), and Mundra (Godown). The system must support batch tracking, serial numbers, and location-specific stock levels. Stock must be updated in real-time after sales, purchase, and production transactions.",
+      "fields": [
+        "Item Code: Type (mandatory)",
+        "Description: Type (mandatory)",
+        "Location: Type (mandatory)",
+        "Quantity: Type (mandatory)",
+        "UOM: Type (mandatory)",
+        "Batch No.: Type (optional)",
+        "Expiry Date: Type (optional)"
+      ],
+      "business_rules": [
+        "Stock must be updated in real-time after any transaction.",
+        "Batch tracking required for raw materials.",
+        "Location-specific stock must be visible and reportable."
+      ],
+      "visual_content": "An Inventory Dashboard showing: Total Stock (12,450 SQM), Stock by Location (Bhopal: 1,200 SQM, Mundra Factory: 8,900 SQM, Mundra Godown: 2,350 SQM), Stock by Material Type (Sandstone: 7,800 SQM, Granite: 4,650 SQM). A table lists items with columns: Item Code, Description, Location, Quantity, UOM, Batch No., Expiry Date.",
+      "sap_reference": "SAP supports location-based inventory but lacks real-time sync across multiple locations and does not support batch tracking for raw materials.",
+      "relationships": [
+        "Item â†’ Location (many-to-many)",
+        "Item â†’ Batch (one-to-many)"
+      ],
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    },
+    {
+      "timestamp": "49:00",
+      "title": "Production Order Execution with Material Consumption and Work-in-Progress Tracking",
+      "module": "Production",
+      "type": "workflow",
+      "priority": "high",
+      "source": "both",
+      "speaker": "Alok",
+      "description": "Production orders must track material consumption, work-in-progress (WIP), and completion status. The system must automatically consume raw materials from inventory when a production order is confirmed. WIP must be visible in real-time, and completion must be marked only after final inspection. Production orders must be linked to sales orders.",
+      "fields": [
+        "Order No.: Type (read-only)",
+        "Sales Order Link: Type (mandatory)",
+        "Material to Produce: Type (mandatory)",
+        "Quantity: Type (mandatory)",
+        "Status: Type (read-only)",
+        "Material Consumption Table: Type (mandatory)",
+        "Inspection Status: Type (mandatory)"
+      ],
+      "business_rules": [
+        "Material consumption must be auto-deducted from inventory upon confirmation.",
+        "Production order cannot be marked complete until inspection is passed.",
+        "WIP must be visible in real-time on the dashboard."
+      ],
+      "visual_content": "A Production Order screen with: Order No., Sales Order Link, Material to Produce, Quantity, Status (In Progress), Material Consumption Table (Item Code, Quantity Used, UOM), and Inspection Status (Pending). A progress bar shows 65% complete.",
+      "sap_reference": "SAP supports production orders and material consumption, but WIP tracking is not real-time and inspection is not mandatory before completion.",
+      "relationships": [
+        "Production Order â†’ Sales Order (one-to-one)",
+        "Production Order â†’ Material Consumption (one-to-many)",
+        "Production Order â†’ Inspection (one-to-one)"
+      ],
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    },
+    {
+      "timestamp": "50:15",
+      "title": "Financial Reporting for Profitability and Cash Flow Monitoring",
+      "module": "Finance",
+      "type": "report_requirement",
+      "priority": "high",
+      "source": "both",
+      "speaker": "Uday",
+      "description": "The system must generate financial reports for profitability margins, cost allocations, budgeting forecasts, performance audits, and cash flow monitoring. Reports must be customizable by customer, product, location, and time period. Key metrics include gross margin, net profit, cost of goods sold (COGS), and cash conversion cycle.",
+      "fields": [
+        "Month: Type (mandatory)",
+        "Revenue: Type (mandatory)",
+        "COGS: Type (mandatory)",
+        "Gross Profit: Type (read-only)",
+        "Net Profit: Type (read-only)",
+        "Margin %: Type (read-only)"
+      ],
+      "business_rules": [
+        "Gross Profit = Revenue - COGS",
+        "Net Profit = Gross Profit - Operating Expenses",
+        "Margin % = (Net Profit / Revenue) Ã— 100"
+      ],
+      "visual_content": "A Finance Dashboard with charts: Gross Margin by Product (Sandstone: 28%, Granite: 32%), Net Profit by Customer (Top 5: 18â€“25%), Cash Flow Forecast (Next 90 Days). A table lists: Month, Revenue, COGS, Gross Profit, Net Profit, Margin %.",
+      "sap_reference": "SAP provides standard financial reports but lacks customization for stone industry-specific KPIs and real-time cash flow forecasting.",
+      "relationships": [
+        "Financial Report â†’ Customer (many-to-one)",
+        "Financial Report â†’ Product (many-to-one)"
+      ],
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    },
+    {
+      "timestamp": "51:30",
+      "title": "Export Documentation Integration (PI, CI, PL, BL, COO)",
+      "module": "Logistics",
+      "type": "integration",
+      "priority": "urgent",
+      "source": "both",
+      "speaker": "Yatin",
+      "description": "The system must generate export documents: Proforma Invoice (PI), Commercial Invoice (CI), Packing List (PL), Bill of Lading (BL), and Certificate of Origin (COO). These documents must be auto-generated from sales and production data and include customer-specific fields, shipping details, and compliance information.",
+      "fields": [
+        "Customer Name: Type (mandatory)",
+        "Shipment Date: Type (mandatory)",
+        "Port of Loading: Type (mandatory)",
+        "Port of Destination: Type (mandatory)",
+        "Container No.: Type (mandatory)",
+        "Weight: Type (mandatory)",
+        "Volume: Type (mandatory)",
+        "HS Code: Type (mandatory)",
+        "Export License No.: Type (mandatory)"
+      ],
+      "business_rules": [
+        "Documents must be generated only after production completion and QC approval.",
+        "HS Code must be auto-filled based on material type and finish."
+      ],
+      "visual_content": "A document generator screen with tabs: PI, CI, PL, BL, COO. Each tab shows fields: Customer Name, Shipment Date, Port of Loading (Mundra), Port of Destination (Dubai), Container No., Weight, Volume, HS Code, and Export License No. A button \"Generate Document\" is visible.",
+      "sap_reference": "SAP supports document generation but requires manual data entry and does not auto-fill HS Code or link to production status.",
+      "relationships": [
+        "Sales Order â†’ Export Document (one-to-many)",
+        "Production Order â†’ Export Document (one-to-many)"
+      ],
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    },
+    {
+      "timestamp": "53:00",
+      "title": "Mobile App for Field Data Collection and Approval",
+      "module": "Mobile",
+      "type": "mobile_requirement",
+      "priority": "normal",
+      "source": "both",
+      "speaker": "Tanmay",
+      "description": "A mobile app must allow field staff to collect data from suppliers (e.g., material quality, delivery status) and submit approvals for POs, sales orders, and production orders. The app must support offline mode and sync when online.",
+      "fields": [
+        "Supplier Name: Type (mandatory)",
+        "Material Type: Type (mandatory)",
+        "Surface Finish: Type (mandatory)",
+        "Cracks Detected: Type (mandatory)",
+        "Photos: Type (optional)",
+        "Submit: Button (action)"
+      ],
+      "business_rules": [
+        "Data must be saved locally if offline.",
+        "Sync must occur automatically when internet is restored."
+      ],
+      "visual_content": "A mobile screen mockup showing: \"Field Inspection Form\" with fields: Supplier Name, Material Type, Surface Finish, Cracks Detected (Yes/No), Photos (Upload), Submit. A second screen shows \"Approval Requests\" with list of pending approvals.",
+      "sap_reference": "SAP Mobile does not support offline data collection or field-specific inspection forms.",
+      "relationships": [
+        "Field Inspection â†’ Supplier (one-to-one)",
+        "Approval Request â†’ User (one-to-one)"
+      ],
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    },
+    {
+      "timestamp": "55:00",
+      "title": "Approval Workflow for High-Value Transactions",
+      "module": "Approvals",
+      "type": "approval_rule",
+      "priority": "high",
+      "source": "both",
+      "speaker": "Shrikanth",
+      "description": "Approval workflows must be triggered for transactions above â‚¹500,000. The workflow must include: Manager â†’ Finance Head â†’ CEO. Each level must approve within 24 hours or the request escalates. Approval must be logged with timestamp and reason.",
+      "fields": [
+        "Request ID: Type (read-only)",
+        "Amount: Type (mandatory)",
+        "Status: Type (read-only)",
+        "Approver 1: Type (mandatory)",
+        "Approver 2: Type (mandatory)",
+        "Approver 3: Type (mandatory)",
+        "Timer: Type (read-only)"
+      ],
+      "business_rules": [
+        "Approval required for transactions > â‚¹500,000.",
+        "Each approver has 24 hours to respond.",
+        "Escalation occurs after 24 hours."
+      ],
+      "visual_content": "An Approval Workflow screen with: Request ID, Amount (â‚¹625,000), Status (Pending), Approver 1 (Manager), Approver 2 (Finance Head), Approver 3 (CEO). A timer shows \"23:45:12\" remaining.",
+      "sap_reference": "SAP supports workflow but lacks time-based escalation and automatic approval triggers.",
+      "relationships": [
+        "Transaction â†’ Approval Workflow (one-to-one)"
+      ],
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    },
+    {
+      "timestamp": "57:15",
+      "title": "Dashboard for Real-Time KPIs and Performance",
+      "chunk_index": 3,
+      "source_file": "part_003.mp4"
+    }
+  ]
+}

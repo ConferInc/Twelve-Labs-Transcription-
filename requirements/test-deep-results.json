@@ -1,0 +1,242 @@
+[
+  {
+    "area": "/sales/invoices",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/sales/returns",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/purchase/orders",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/purchase/receipts",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/purchase/returns",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/inventory/stock",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/inventory/adjustments",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/inventory/stocktake",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/inventory/transfers",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/production/work-orders",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/production/job-cards",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/production/bom",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/finance/receivables",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/finance/payables",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/finance/payments",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/finance/reports",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/logistics/tracking",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "/profile",
+    "status": "WARN",
+    "detail": "Page loads but no tables/forms detected"
+  },
+  {
+    "area": "Quotes Data",
+    "status": "WARN",
+    "detail": "Empty - no quotes exist"
+  },
+  {
+    "area": "PI Data",
+    "status": "WARN",
+    "detail": "Cannot determine if data exists"
+  },
+  {
+    "area": "Items Data",
+    "status": "OK",
+    "detail": "Items page with data indicators"
+  },
+  {
+    "area": "Dashboard Content",
+    "status": "OK",
+    "detail": "Has stats and activity"
+  },
+  {
+    "area": "API /health",
+    "status": "OK",
+    "detail": "200 - {\"status\":\"healthy\",\"timestamp\":\"2026-04-14T17:39:30.716Z\",\"version\":\"0.1.0\",\"up"
+  },
+  {
+    "area": "API /auth/me",
+    "status": "DEFECT",
+    "detail": "404 Not Found"
+  },
+  {
+    "area": "API /api/masters/customers",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"5e6b67ff-98ce-4d41-bcd5-ad088dc106c4\",\"code\":\"CUST001\",\"name\":\"A"
+  },
+  {
+    "area": "API /api/masters/items",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"b5d96cbf-dead-4508-8d40-25e2dd313743\",\"code\":\"GRAN-BLU-TILE-20\","
+  },
+  {
+    "area": "API /api/sf-core/stone-types",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"21d4d05e-a980-45b2-8ba9-f2963c44847d\",\"code\":\"BAS\",\"name\":\"Basal"
+  },
+  {
+    "area": "API /api/sf-core/colors",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"851ff9bf-49fb-4608-acc0-c892d985512d\",\"code\":\"AGW\",\"name\":\"Aagar"
+  },
+  {
+    "area": "API /api/sf-core/shapes",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"e26879f4-7b3e-4dd0-accd-ff01afd6608a\",\"code\":\"ARTFAC\",\"name\":\"Ar"
+  },
+  {
+    "area": "API /api/sf-core/dimension-uoms",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"94e2a182-e9ca-4700-84a7-e3499880e864\",\"code\":\"CM\",\"name\":\"Centim"
+  },
+  {
+    "area": "API /api/sf-core/item-uoms",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"cf0e057f-77cf-4cc6-b7fa-d037f774c5dd\",\"code\":\"CONT\",\"name\":\"Cont"
+  },
+  {
+    "area": "API /api/sf-core/ports",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"5e34347b-45a7-4904-89f3-773a5fd4644b\",\"code\":\"CHENNAI\",\"name\":\"C"
+  },
+  {
+    "area": "API /api/sf-core/quarries",
+    "status": "DEFECT",
+    "detail": "HTTP 500: {\"statusCode\":500,\"error\":\"PostgresError\",\"message\":\"Internal Server Error\"}"
+  },
+  {
+    "area": "API /api/sf-core/suppliers",
+    "status": "DEFECT",
+    "detail": "HTTP 500: {\"statusCode\":500,\"error\":\"PostgresError\",\"message\":\"Internal Server Error\"}"
+  },
+  {
+    "area": "API /api/sf-core/surfaces",
+    "status": "DEFECT",
+    "detail": "404 Not Found"
+  },
+  {
+    "area": "API /api/sf-core/containers",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"05b81bf2-4860-4cec-a636-d196b3c367fe\",\"code\":\"20FT\",\"name\":\"20 F"
+  },
+  {
+    "area": "API /api/sales/quotes",
+    "status": "OK",
+    "detail": "200 - {\"data\":[],\"pagination\":{\"page\":1,\"limit\":20,\"total\":0,\"totalPages\":0,\"hasNextPa"
+  },
+  {
+    "area": "API /api/sales/pis",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"06c0aa6c-55b0-40f4-a0e7-e4c19a85e2d3\",\"piNumber\":\"PI/DEMO/REJECT"
+  },
+  {
+    "area": "API /api/sales/proforma-invoices",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"06c0aa6c-55b0-40f4-a0e7-e4c19a85e2d3\",\"piNumber\":\"PI/DEMO/REJECT"
+  },
+  {
+    "area": "API /api/sales/orders",
+    "status": "OK",
+    "detail": "200 - {\"data\":[],\"pagination\":{\"page\":1,\"limit\":20,\"total\":0,\"totalPages\":0,\"hasNextPa"
+  },
+  {
+    "area": "API /api/sales/invoices",
+    "status": "OK",
+    "detail": "200 - {\"data\":[],\"pagination\":{\"page\":1,\"limit\":20,\"total\":0,\"totalPages\":0,\"hasNextPa"
+  },
+  {
+    "area": "API /api/sales/commercial-invoices",
+    "status": "OK",
+    "detail": "200 - {\"data\":[],\"pagination\":{\"page\":1,\"limit\":20,\"total\":0,\"totalPages\":0,\"hasNextPa"
+  },
+  {
+    "area": "API /api/sales/packing-lists",
+    "status": "OK",
+    "detail": "200 - {\"data\":[{\"id\":\"40a8829e-8187-46da-aec9-b7730d3bbcdd\",\"packingNumber\":\"PL/DEMO/0"
+  },
+  {
+    "area": "API /api/dashboard/overview",
+    "status": "OK",
+    "detail": "200 - {\"customers\":5,\"items\":10,\"proformaInvoices\":4,\"draftPIs\":1,\"recentActivity\":[]}"
+  },
+  {
+    "area": "API /api/dashboard/sales",
+    "status": "OK",
+    "detail": "200 - {\"proformaInvoices\":{\"count\":4,\"totalAmount\":\"28000.00\"}}"
+  },
+  {
+    "area": "API /api/dashboard/inventory",
+    "status": "OK",
+    "detail": "200 - {\"totalItems\":10,\"activeItems\":10,\"stoneTypes\":24}"
+  },
+  {
+    "area": "API /api/gst/states",
+    "status": "OK",
+    "detail": "200 - {\"success\":true,\"data\":[{\"code\":\"10\",\"name\":\"Bihar\"},{\"code\":\"11\",\"name\":\"Sikkim"
+  },
+  {
+    "area": "API /api/gst/default-rate",
+    "status": "OK",
+    "detail": "200 - {\"success\":true,\"data\":{\"defaultRate\":18,\"description\":\"Default GST rate applied"
+  }
+]
