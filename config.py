@@ -6,21 +6,23 @@ class Config:
     # ============================================================
 
     # [ACTION REQUIRED] PASTE YOUR API KEY HERE
-    API_KEY = "tlk_2DBEN7P0HJPGWB2XD5H0C391XWS3"
+    # Get one at: https://playground.twelvelabs.io
+    API_KEY = "YOUR_API_KEY_HERE"
 
     # INDEX CONFIGURATION
-    # Clear INDEX_ID to create a fresh index for StoneFactory
-    INDEX_ID = ""  # Leave empty to auto-create
-    INDEX_NAME = "StoneFactory_ERP_Meeting_Analysis_v1"
+    # Leave INDEX_ID empty to auto-create a new index.
+    # After first run, paste the index ID here to reuse it.
+    INDEX_ID = ""
+    INDEX_NAME = "StoneFactory_ERP_Meeting_Analysis"
 
     # PROCESSING SETTINGS
-    CHUNK_DURATION_MINS = 15  # 15-minute chunks (optimal for Twelve Labs accuracy)
-    SLEEP_BETWEEN_ANALYSIS = 45  # Seconds between API calls (reduced from 60 for faster processing)
+    CHUNK_DURATION_MINS = 15  # 15-minute chunks
+    SLEEP_BETWEEN_ANALYSIS = 75  # Seconds between API calls (stay under 4000 token/min)
 
     # PATHS
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     RAW_VIDEO_DIR = os.path.join(BASE_DIR, "raw_video")
-    RAW_VIDEO_PATH = os.path.join(RAW_VIDEO_DIR, "Link1.mp4")  # Rename your video to this
+    RAW_VIDEO_PATH = os.path.join(RAW_VIDEO_DIR, "Link1.mp4")
     CHUNKS_DIR = os.path.join(BASE_DIR, "chunks")
     DATA_DIR = os.path.join(BASE_DIR, "data")
     TRANSCRIPT_PATH = os.path.join(BASE_DIR, "transcript.vtt")
@@ -35,7 +37,6 @@ class Config:
     FINAL_JSON = os.path.join(DATA_DIR, "structured_requirements.json")
 
     # STONEFACTORY CONTEXT
-    # These are injected into the analysis prompt for better accuracy
     PROJECT_NAME = "StoneFactory ERP"
     CLIENT_NAME = "Global Impex Pvt. Ltd."
     CLIENT_INDUSTRY = "Natural Stone Import/Export"
@@ -51,20 +52,9 @@ class Config:
 
     # ERP Modules for classification
     ERP_MODULES = [
-        "Masters",           # Stone types, colors, shapes, items, customers, suppliers
-        "Sales",             # Quotes, PIs, orders, invoices, commercial invoices
-        "Purchase",          # POs, GRNs, supplier management
-        "Inventory",         # Stock, warehouses, locations, crate tracking
-        "Production",        # Job cards, work orders, contractor management, BOM
-        "Finance",           # GST, payments, receivables, payables, Tally integration
-        "Logistics",         # Shipments, containers, packing lists, ports
-        "Dashboard",         # KPIs, reports, analytics
-        "Mobile",            # Field inspector, stock counting, QR scanning
-        "Approvals",         # Approval workflows, role hierarchy
-        "CRM",               # Leads, opportunities, communications
-        "Settings",          # Company, branches, GST registration
-        "UOM",               # Unit of measurement, conversions, density factors
-        "Reports",           # Print formats, export documents
+        "Masters", "Sales", "Purchase", "Inventory", "Production",
+        "Finance", "Logistics", "Dashboard", "Mobile", "Approvals",
+        "CRM", "Settings", "UOM", "Reports",
     ]
 
 # Ensure directories exist

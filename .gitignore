@@ -1,21 +1,28 @@
-# --- Media & Large Files ---
+# Media & Large Files
 raw_video/*
 !raw_video/.gitkeep
 chunks/*
 !chunks/.gitkeep
 
-# --- Generated Data & State ---
+# Generated Data & State
 data/*
 !data/.gitkeep
+StoneFactory_Meeting_Requirements.md
 Moxi_Master_SOP.md
 
-# --- Context Files ---
-# Transcript often contains PII or specific meeting data, better to ignore.
+# Audio temp files
+*.m4a
+
+# Transcripts (may contain PII)
 transcript.vtt
 
-# --- Python & Environment ---
+# Python
 __pycache__/
 *.pyc
 venv/
 .env
 .DS_Store
+
+# Node (if someone runs npm install here)
+node_modules/
+package-lock.json

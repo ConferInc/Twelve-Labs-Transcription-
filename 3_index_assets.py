@@ -57,11 +57,11 @@ def index_assets():
     # Create new index if needed
     if not target_index:
         print(f"  [NEW] Creating Index '{Config.INDEX_NAME}'...")
-        print(f"        Models: Marengo 2.7 (visual+audio) + Pegasus 1.2 (visual+audio)")
+        print(f"        Models: Marengo 3.0 (visual+audio) + Pegasus 1.2 (visual+audio)")
         target_index = client.indexes.create(
             index_name=Config.INDEX_NAME,
             models=[
-                {"model_name": "marengo2.7", "model_options": ["visual", "audio"]},
+                {"model_name": "marengo3.0", "model_options": ["visual", "audio"]},
                 {"model_name": "pegasus1.2", "model_options": ["visual", "audio"]}
             ]
         )
